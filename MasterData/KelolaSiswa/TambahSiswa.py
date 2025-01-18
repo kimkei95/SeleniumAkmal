@@ -176,3 +176,70 @@ tempatLahir.send_keys(kota_terpilih)
 
 time.sleep(3)
 
+#date picker
+
+date_picker = driver.find_element(By.XPATH,"//*[@data-testid='birth-date-picker']")
+date_picker.click()
+
+#pilih Tahun date picker
+yearPicker = driver.find_element(By.XPATH,"(//*[@data-testid='selected-value'])[4]")
+yearPicker.click()
+
+wait = WebDriverWait(driver, 10)
+dropdown1 = wait.until(EC.presence_of_element_located((By.XPATH, "//div[@data-testid='dropdown-menu']")))
+
+# Pilih Tahun
+opsi_tahun = []
+for year in range(2000, 2013):  # Range tahun yang diinginkan
+    xpath = f"//*[@data-testid='option-{year}']"
+    opsi_tahun.append(driver.find_element(By.XPATH, xpath))
+
+pilihan_tahun = random.choice(opsi_tahun)
+pilihan_tahun.click()
+time.sleep(5)
+
+#pilih bulan date picker
+
+monthPicker = driver.find_element(By.XPATH,"(//*[@data-testid='selected-value'])[3]")
+monthPicker.click()
+
+wait = WebDriverWait(driver, 10)
+dropdown2 = wait.until(EC.presence_of_element_located((By.XPATH, "//div[@data-testid='dropdown-menu']")))
+
+months = []
+for month in range(1, 13):
+    xpath = f"//*[@data-testid='option-{month}']"
+    months.append(driver.find_element(By.XPATH, xpath))
+random_month = random.choice(months)
+random_month.click()
+
+time.sleep(5)
+
+#pilih tanggal
+
+random_index = random.randint(10, 20)
+xpath = f"(//div[@data-testid='date-cells-picker'])[{random_index}]"
+element = driver.find_element(By.XPATH, xpath)
+element.click()
+
+time.sleep(5)
+
+#Pilih Unit
+
+unit = driver.find_element(By.XPATH,"(//*[@data-testid='select-field'])[3]")
+unit.click()
+
+time.sleep(3)
+
+value_unit = driver.find_element(By.XPATH,"//*[@data-testid='option-3']")
+value_unit.click()
+
+time.sleep(3)
+
+
+#Pilih Kelas
+
+pilih_kelasSiswa = driver.find_element(By.XPATH,"(//*[@data-testid='select-field'])[4]")
+pilih_kelasSiswa.click()
+
+time.sleep(3)
