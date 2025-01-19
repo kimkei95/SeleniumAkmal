@@ -64,11 +64,19 @@ nama_siswa1.click()
 
 nama_murid1 = [
     "Muhammad Akmal",
-    "Rina Sari",
+    "Andrean",
     "Budi Santoso",
-    "Dewi Anggraini",
+    "Dewa Saputra",
     "Joko Prabowo",
-    "Anisa Putri"
+    "Andra",
+    "Samuel Santoso",
+    "Rezaldy",
+    "Muhammad Fadel",
+    "Asep Darmawan",
+    "Agustinus",
+    "William",
+    "Jackson Wang",
+    "Anthony"
 ]
 
 # Pilih nama secara acak dari array
@@ -242,4 +250,94 @@ time.sleep(3)
 pilih_kelasSiswa = driver.find_element(By.XPATH,"(//*[@data-testid='select-field'])[4]")
 pilih_kelasSiswa.click()
 
+wait = WebDriverWait(driver, 10)
+dropdown_menu1 = wait.until(EC.presence_of_element_located((By.XPATH, "//div[@data-testid='dropdown-menu']")))
+
+if dropdown_menu1.is_displayed():
+    print("Dropdown menu tersedia dan terlihat.")
+else:
+    print("Dropdown menu tidak terlihat.")
+
+options_kelas = driver.find_elements(By.XPATH, "//div[@data-testid='dropdown-menu']//div[starts-with(@data-testid, 'option-')]")
+
+if options_kelas:
+    # Pilih secara acak
+    random_choice1 = random.choice(options_kelas)
+    print("Opsi yang dipilih:", random_choice1.text)
+
+    # Klik yang dipilih
+    random_choice1.click()
+else:
+    print("Tidak ada opsi di dropdown-menu.")
+time.sleep(5)
+
+#pilih gender
+
+gender = driver.find_element(By.XPATH,"//input[@type='radio' and @value='laki-laki']")
+gender.click()
 time.sleep(3)
+
+#Nohp
+input_hp = driver.find_element(By.XPATH, "//input[@name='noHandphone']")
+input_hp.click()
+
+random_number = ''.join(random.choices('0123456789', k=20))
+input_hp.send_keys(random_number)
+print(f"Nomor HP yang dimasukkan: {random_number}")
+time.sleep(5)
+
+#Agama
+
+agama = driver.find_element(By.XPATH,"(//*[@data-testid='select-field'])[5]")
+agama.click()
+time.sleep(3)
+
+dropdown_menuAgama = driver.find_element(By.XPATH, "//div[@data-testid='dropdown-menu']")
+optionsAgama = dropdown_menuAgama.find_elements(By.XPATH, ".//div[contains(@data-testid, 'option-')]")
+random_optionAgama = random.choice(optionsAgama)
+random_optionAgama.click()
+
+time.sleep(5)
+
+#Email Ortu
+
+email_ortu = driver.find_element(By.NAME,"emailParent")
+email_ortu.click()
+
+emailortu = ["akmalalhaqi123@gmail.com", "user.ortu@gmail.com"]
+random_email = random.choice(emailortu)
+email_ortu.send_keys(random_email)
+
+time.sleep(5)
+
+#alamat
+alamat = driver.find_element(By.NAME,"address")
+alamat.click()
+
+list_alamat = [
+    "Jl. Sudirman No. 23, Jakarta Pusat, DKI Jakarta 10210",
+    "Jl. Ahmad Yani No. 45, Surabaya, Jawa Timur 60234",
+    "Jl. Braga No. 12, Bandung, Jawa Barat 40111",
+    "Jl. Malioboro No. 78, Yogyakarta 55213",
+    "Jl. Imam Bonjol No. 56, Medan, Sumatera Utara 20152",
+    "Jl. Gajah Mada No. 89, Semarang, Jawa Tengah 50133",
+    "Jl. Pattimura No. 10, Makassar, Sulawesi Selatan 90114",
+    "Jl. Jendral Sudirman No. 34, Denpasar, Bali 80111",
+    "Jl. Diponegoro No. 88, Malang, Jawa Timur 65112",
+    "Jl. Panglima Polim No. 5, Balikpapan, Kalimantan Timur 76112"
+]
+random_alamat = random.choice(list_alamat)
+alamat.send_keys(random_alamat)
+
+time.sleep(3)
+
+#Simpan
+simpan_addsiswa = driver.find_element(By.XPATH,"//div[text()='Simpan']")
+simpan_addsiswa.click()
+
+#pop-up
+
+pop_upAddSiswa = driver.find_element(By.XPATH,"//div[@class='flex items-center text-center' and text()='Ya']")
+pop_upAddSiswa.click()
+
+time.sleep(7)
