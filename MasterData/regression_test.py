@@ -1,7 +1,7 @@
 import unittest
 from HtmlTestRunner import HTMLTestRunner
-from TambahAkunBank import tambah_bank
-from EditAkunBank import edit_abank
+from MasterData.Bank.TambahAkunBank import tambah_bank
+from MasterData.Bank.EditAkunBank import edit_abank
 import logging
 
 # Menyiapkan logging
