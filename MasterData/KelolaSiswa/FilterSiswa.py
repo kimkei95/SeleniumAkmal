@@ -5,67 +5,81 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
+def filter_siswa():
+    options = Options()
+    options.add_argument("--ignore-certificate-errors")
+    options.add_argument("--ignore-ssl-errors")
 
+    try:
+        # Inisialisasi driver
+        service = Service(executeable_path="C:\\Users\\akmal\\Selenium-Py\\chrome-headless-shell.exe")
+        driver = webdriver.Chrome(service=service)
+        driver.maximize_window()
+        print("Browser dibuka dan dimaksimalkan.")
 
-options = Options()
-options.add_argument("--ignore-certificate-errors")
-options.add_argument("--ignore-ssl-errors")
+        # Akses URL
+        driver.get("https://sit.siprusedu.com/login")
+        print("URL login dibuka.")
 
-# Inisialisasi driver
-service = Service(executeable_path="C:\\Users\\akmal\\Selenium-Py\\chrome-headless-shell.exe")
-driver = webdriver.Chrome(service=service)
-driver.maximize_window()
-# Akses URL
-driver.get("https://sit.siprusedu.com/login")
+        # Tunggu hingga elemen email dapat ditemukan
+        wait = WebDriverWait(driver, 10)
+        email = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@name='email']")))
+        password = driver.find_element(By.NAME, "password")
+        login_button = driver.find_element(By.XPATH, "//*[@id='__next']/div[1]/main/div[1]/div/form/button")
+        print("Elemen login ditemukan.")
 
-# Tunggu hingga elemen email dapat ditemukan
-wait = WebDriverWait(driver, 10)  # Tunggu hingga 10 detik
-email = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@name='email']")))
-password = driver.find_element(By.NAME, "password")
-login_button = driver.find_element(By.XPATH, "//*[@id='__next']/div[1]/main/div[1]/div/form/button")
+        # Masukkan kredensial
+        email.send_keys("admin.sekolah@gmail.com")
+        password.send_keys("Test1234")
+        print("Kredensial dimasukkan.")
 
-# Masukkan kredensial
-email.send_keys("admin.sekolah@gmail.com")
-password.send_keys("Test1234")
+        # Klik tombol login
+        login_button.click()
+        print("Tombol login diklik.")
 
-# Klik tombol login
-login_button.click()
+        # Tunggu hingga login berhasil
+        wait.until(EC.presence_of_element_located((By.XPATH, "(//*[@data-testid='sidebar-menu-master-data'])[2]")))
+        print("Login berhasil.")
 
-# Tunggu beberapa detik setelah login
-time.sleep(9)
+        # Klik Menu Master Data
+        master_data = driver.find_element(By.XPATH, "(//*[@data-testid='sidebar-menu-master-data'])[2]")
+        master_data.click()
+        print("Menu Master Data diklik.")
 
-# Klik Menu Master Data
-master_data = wait.until(EC.element_to_be_clickable((By.XPATH, "(//*[@data-testid='sidebar-menu-master-data'])[2]")))
-master_data.click()
-time.sleep(5)
+        # Klik sub-menu siswa
+        kelola_siswa = wait.until(EC.element_to_be_clickable((By.XPATH, "(//*[@data-testid='sidebar-menu-kelola-siswa'])[2]")))
+        kelola_siswa.click()
+        print("Sub-menu Kelola Siswa diklik.")
 
-#klik sub-menu siswa
-kelola_siswa = driver.find_element(By.XPATH,"(//*[@data-testid='sidebar-menu-kelola-siswa'])[2]")
-kelola_siswa.click()
+        # Klik dropdown Kelas
+        dropdown_kelas = wait.until(EC.element_to_be_clickable((By.XPATH, "(//*[@data-testid='selected-value'])[2]")))
+        dropdown_kelas.click()
+        print("Dropdown Kelas dibuka.")
 
-time.sleep(4)
+        # Masukkan nilai kelas
+        value_kelas = driver.find_element(By.XPATH, "//input[@placeholder='Cari kelas']")
+        value_kelas.send_keys("agama")
+        print("Nilai 'agama' dimasukkan ke filter kelas.")
 
-#Kelas
+        # Pilih kelas yang sesuai
+        pilih_value = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@data-testid='option-192']")))
+        pilih_value.click()
+        print("Kelas 'agama' dipilih.")
 
-dropdown_kelas = driver.find_element(By.XPATH,"(//*[@data-testid='selected-value'])[2]")
-dropdown_kelas.click()
+        # Klik tombol Terapkan Filter
+        btn_terapkan_filter = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='flex items-center text-center' and text()='Terapkan']")))
+        btn_terapkan_filter.click()
+        print("Tombol Terapkan Filter diklik.")
 
-value_kelas = driver.find_element(By.XPATH,"//input[@placeholder='Cari kelas']")
-value_kelas.click()
-value_kelas.send_keys("agama")
+        # Tunggu hingga filter diterapkan
+        wait.until(EC.presence_of_element_located((By.XPATH, "//*[@data-testid='filtered-results']")))
+        print("Filter berhasil diterapkan.")
 
-pilih_value = driver.find_element(By.XPATH,"//*[@data-testid='option-192']")
-pilih_value.click()
-
-time.sleep(5)
-#terapkan
-
-btn_terapkan_filter = driver.find_element(By.XPATH,"//div[@class='flex items-center text-center' and text()='Terapkan']")
-btn_terapkan_filter.click()
-
-time.sleep(7)
-
-driver.quit()
+    except Exception as e:
+        print(f"Terjadi kesalahan: {e}")
+    finally:
+        # Menutup browser
+        driver.quit()
+        print("Browser ditutup.")
 
