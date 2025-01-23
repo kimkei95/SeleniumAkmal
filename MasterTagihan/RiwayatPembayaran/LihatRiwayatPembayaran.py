@@ -51,7 +51,7 @@ time.sleep(5)
 
 #lihat
 elements_lihat = driver.find_elements(By.XPATH,
-                                "//div[@class='flex size-full justify-center']//button[contains(text(),'Lihat')]")
+                                "(//div[@class='flex size-full justify-center'])//button[contains(text(),'Lihat')]")
 if elements_lihat:
     random_element = random.choice(elements_lihat)
     random_element.click()
