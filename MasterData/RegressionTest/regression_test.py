@@ -15,6 +15,12 @@ from MasterData.Tagihan.TambahTagihan import tambah_tagihan
 from MasterData.Tagihan.LihatTagihan import lihat_tagihan
 from MasterData.Tagihan.FilterTagihan import filter_tagihan
 from MasterTagihan.TagihanPerSiswa.CariTagihanPersiswa import cari_tagihanpersiswa
+from MasterTagihan.TagihanPerSiswa.EditTagihanPersiswa import edit_tagihan
+from MasterTagihan.TagihanPerSiswa.HapusTagihanPersiswa import hapus_tagihan_persiswa
+from MasterTagihan.RiwayatPembayaran.LihatRiwayatPembayaran import lihat_riwayat
+from MasterTagihan.RiwayatPembayaran.CariRiwayatPembayaran import cari_riwayat
+from MasterTagihan.Pembayaran.BayarTagihan import bayar_tagihan
+from MasterPengaturanSistem.PengaturanSekolah import pengaturan_sekolah
 import logging
 import os
 from datetime import datetime
@@ -207,7 +213,71 @@ class TestCariTagihanPersiswa(unittest.TestCase):
                 logging.error(f"Tes Cari Tagihan PerSiswa ke-{i + 1} gagal: {e}")
                 continue
 
+class TestEditTagihanPersiswa(unittest.TestCase):
+    def test_edit_tagihan_persiswa(self):
+        for i in range(3):
+            logging.info(f"Tes Edit Tagihan Persiswa ke-{i + 1}...")
+            try:
+                edit_tagihan()
+                logging.info(f"Tes Edit Tagihan Persiswa ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Edit Tagihan Persiswa ke-{i + 1} gagal: {e}")
+                continue
 
+class TestHapusTagihanPersiswa(unittest.TestCase):
+    def test_hapus_tagihan_persiswa(self):
+        for i in range(3):
+            logging.info(f"Tes Hapus Tagihan Persiswa ke-{i + 1}...")
+            try:
+                hapus_tagihan_persiswa()
+                logging.info(f"Tes Hapus Tagihan Persiswa ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Hapus Tagihan Persoswa ke-{i + 1} gagal: {e}")
+                continue
+
+class TestCariRiwayatPembayaran(unittest.TestCase):
+    def test_cari_riwayat_tagihan(self):
+        for i in range(3):
+            logging.info(f"Tes Cari Riwayat Pembayaran ke-{i + 1}...")
+            try:
+                cari_riwayat()
+                logging.info(f"Tes Cari Riwayat Pembayaran ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Test Cari Riwayat Pembayaran ke-{i + 1} gagal: {e}")
+                continue
+
+class TestLihatRiwayatPembayaran(unittest.TestCase):
+    def test_lihat_riwayat_pembayaran(self):
+        for i in range(3):
+            logging.info(f"Tes Lihat Riwayat Pembayaran ke-{i + 1}...")
+            try:
+                lihat_riwayat()
+                logging.info(f"Tes Lihat Riwayat Pembayaran ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Test Lihat Riwayat Pembayaran ke-{i + 1} gagal: {e}")
+                continue
+class TestBayarTagihan(unittest.TestCase):
+    def test_bayar_tagihan(self):
+        for i in range(3):
+            logging.info(f"Test Bayar Tagihan ke-{i + 1}...")
+            try:
+                bayar_tagihan()
+                logging.info(f"Tes Bayar Tagihan ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Bayar Tagihan ke-{i + 1} gagal: {e}")
+                continue
+class TestPengaturanSekolah(unittest.TestCase):
+    def test_atur_sekolah(self):
+        for i in range(3):
+
+            logging.info(f"Test Pengaturan Sekolah ke-{i + 1}...")
+            try:
+                pengaturan_sekolah()
+                logging.info(f"Tes Pengaturan Sekolah ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Pengaturan Sekolah ke-{i + 1} gagal: {e}")
+                continue
+                
 # yang ini belum kepake karna masih nyari buat ubah script terbaca jadi testcase (untuk genereate auto report)
 def run_regression_tests():
     # Memuat semua tes untuk tambah bank dan edit bank

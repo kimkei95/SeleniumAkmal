@@ -9,7 +9,7 @@ import random
 
 from webdriver_manager.chrome import ChromeDriverManager
 
-def lihat_riwayat():
+def cari_riwayat():
     options = Options()
     options.add_argument("--ignore-certificate-errors")
     options.add_argument("--ignore-ssl-errors")
@@ -20,7 +20,6 @@ def lihat_riwayat():
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.maximize_window()
-
      # Akses URL
     driver.get("https://sit.siprusedu.com/login")
 
@@ -54,11 +53,45 @@ def lihat_riwayat():
 
     time.sleep(5)
 
-    #lihat
-    elements_lihat = driver.find_elements(By.XPATH,
-                                    "(//div[@class='flex size-full justify-center'])//button[contains(text(),'Lihat')]")
-    if elements_lihat:
-        random_element = random.choice(elements_lihat)
-        random_element.click()
+    #filter metode pembayaran
+    metode_pembayaran = driver.find_element(By.XPATH,"(//*[@data-testid='selected-value'])[1]")
+    metode_pembayaran.click()
 
-        time.sleep(7)
+    dropdown = WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, '[data-testid="dropdown-menu"]'))
+    )
+    options = dropdown.find_elements(By.CSS_SELECTOR, '[data-testid^="option-"]')
+    if options:
+        random_option = random.choice(options)
+        random_option.click()
+    else:
+        print("Tidak ada opsi yang ditemukan dalam dropdown.")
+
+    time.sleep(5)
+
+    #status Pembayaran
+
+    status = driver.find_element(By.XPATH,"(//*[@data-testid='selected-value'])[2]")
+    status.click()
+    time.sleep(3)
+
+    #random pilih status
+
+    dropdown1 = WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, '[data-testid="dropdown-menu"]'))
+    )
+    options1 = dropdown1.find_elements(By.CSS_SELECTOR, '[data-testid^="option-"]')
+    if options1:
+        random_option1 = random.choice(options1)
+        random_option1.click()
+    else:
+        print("Tidak ada opsi yang ditemukan dalam dropdown.")
+
+    time.sleep(5)
+
+    #Klik Terapkan
+
+    terapkan_filter = driver.find_element(By.XPATH,"//button[div[text()='Terapkan']]")
+    terapkan_filter.click()
+
+    time.sleep(3)

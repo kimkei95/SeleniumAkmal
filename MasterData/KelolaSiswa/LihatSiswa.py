@@ -7,17 +7,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+from webdriver_manager.chrome import ChromeDriverManager
+
+
 def lihat_siswa():
     options = Options()
     options.add_argument("--ignore-certificate-errors")
     options.add_argument("--ignore-ssl-errors")
+    options.add_argument("--headless")
 
     # Inisialisasi driver
     print("Inisialisasi driver...")
-    service = Service(executable_path="C:\\Users\\akmal\\Selenium-Py\\chrome-headless-shell.exe")
-    driver = webdriver.Chrome(service=service)
-    driver.maximize_window()
 
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver.maximize_window()
     # Akses URL
     print("Mengakses URL...")
     driver.get("https://sit.siprusedu.com/login")

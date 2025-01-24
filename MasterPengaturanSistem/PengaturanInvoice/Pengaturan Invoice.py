@@ -12,12 +12,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
+
 options = Options()
 options.add_argument("--ignore-certificate-errors")
 options.add_argument("--ignore-ssl-errors")
 options.add_argument("--headless")
 
-# Inisialisasi driver
+    # Inisialisasi driver
 print("Inisialisasi driver...")
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -46,38 +47,59 @@ login_button.click()
     # Tunggu beberapa detik setelah login
 time.sleep(9)
 
-
-#Pengturan Sistem
-pengaturan_sistem = driver.find_element(By.XPATH,"(//*[@data-testid='sidebar-menu-pengaturan-sistem'])[2]")
+    # Pengturan Sistem
+pengaturan_sistem = driver.find_element(By.XPATH, "(//*[@data-testid='sidebar-menu-pengaturan-sistem'])[2]")
 pengaturan_sistem.click()
 time.sleep(4)
 print("berhasil masuk ke menu pengaturan sistem")
 
-#Pilih Card Sekolah
+# card invoice
 
-cardSekolah = driver.find_element(By.XPATH,"(//div[contains(@class, 'flex') and .//p[text()='Informasi Sekolah']])[5]")
-cardSekolah.click()
+invoice = driver.find_element(By.XPATH,"//div[@class='flex h-[148px] w-[160px] cursor-pointer flex-col items-center justify-center gap-3 rounded-md border' and .//p[text()='Invoice']]")
+invoice.click()
 time.sleep(4)
-print("Masuk Ke Menu Informasi Sekolah")
 
 
-#ubah logo Sekolah
-ubah_logo = driver.find_element(By.XPATH,"(//*[@data-testid='upload-action-label'])[1]")
-ubah_logo.click()
-print("Membuka File Explorer")
-time.sleep(5)
-pyautogui.write(r"C:\Users\akmal\Downloads\winter-aespa-hot-mess-4k-wallpaper-uhdpaper.com-362@0@k.jpg")  # Path file gambar
-pyautogui.press("enter")
-print("Logo Sekolah berhasil ditambahkan")
+
+# Temukan elemen input untuk prefix
+field_prefix = driver.find_element(By.NAME, "prefix")
+field_prefix.click()  # Klik field untuk memastikan fokus
+field_prefix.send_keys(Keys.CONTROL + "a")
+field_prefix.send_keys(Keys.BACKSPACE)
+time.sleep(3)  # Tunggu sebentar
+prefix_options = ["INV-", "INVOICE-", "TAGIHAN-", "NOTA-"]
+
+# Pilih prefix secara acak
+random_prefix = random.choice(prefix_options)
+field_prefix.send_keys(random_prefix)
+time.sleep(4)
+
+
+#ubah format
+
+# Klik pada elemen yang memunculkan pilihan format
+ubah_format = driver.find_element(By.XPATH, "//*[@data-testid='selected-value']")
+ubah_format.click()
+
+# Tunggu beberapa detik agar opsi muncul
+time.sleep(3)
+
+# Ambil semua elemen yang memiliki atribut data-testid yang dimulai dengan 'option-'
+options = driver.find_elements(By.XPATH, "//*[starts-with(@data-testid, 'option-')]")
+
+# Pilih salah satu elemen secara acak
+random_option = random.choice(options)
+
+# Klik opsi yang dipilih
+random_option.click()
+
+time.sleep(4)
+
+#simpan perubahan
+
+simpan_perubahan = driver.find_element(By.XPATH,"//button[div[text()='Lanjutkan']]")
+simpan_perubahan.click()
 
 time.sleep(5)
 
-#ubah Kop Surat
-ubah_kop = driver.find_element(By.XPATH,"(//*[@data-testid='upload-action-label'])[2]")
-ubah_kop.click()
-print("Membuka File Explorer")
-time.sleep(5)
-pyautogui.write(r"C:\Users\akmal\Downloads\Logo-OSIS-SMA.png")  # Path file gambar
-pyautogui.press("enter")
-print("Kop Surat berhasil ditambahkan")
-time.sleep(5)
+

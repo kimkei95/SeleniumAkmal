@@ -6,16 +6,24 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 def lihat_tagihan():
-    options = Options()
-    options.add_argument("--ignore-certificate-errors")
-    options.add_argument("--ignore-ssl-errors")
+
 
     try:
         # Inisialisasi driver
-        service = Service(executeable_path="C:\\Users\\akmal\\Selenium-Py\\chrome-headless-shell.exe")
-        driver = webdriver.Chrome(service=service)
+        options = Options()
+        options.add_argument("--ignore-certificate-errors")
+        options.add_argument("--ignore-ssl-errors")
+        options.add_argument("--headless")
+
+        # Inisialisasi driver
+        print("Inisialisasi driver...")
+
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        driver.maximize_window()
         driver.maximize_window()
         print("Driver initialized and window maximized")
 

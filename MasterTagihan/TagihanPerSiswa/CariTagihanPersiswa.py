@@ -4,19 +4,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 def cari_tagihanpersiswa():
     options = Options()
     options.add_argument("--ignore-certificate-errors")
     options.add_argument("--ignore-ssl-errors")
+    options.add_argument("--headless")
 
-     # Inisialisasi driver
-    service = Service(executeable_path="C:\\Users\\akmal\\Selenium-Py\\chrome-headless-shell.exe")
-    driver = webdriver.Chrome(service=service)
+    # Inisialisasi driver
+    print("Inisialisasi driver...")
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.maximize_window()
 
-     # Akses URL
+    # Akses URL
     driver.get("https://sit.siprusedu.com/login")
 
      # Tunggu hingga elemen email dapat ditemukan

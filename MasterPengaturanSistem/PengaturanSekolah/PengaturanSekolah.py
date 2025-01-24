@@ -1,3 +1,6 @@
+import random
+
+import pyautogui
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.service import Service
@@ -5,12 +8,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-from webdriver_manager.chrome import ChromeDriverManager
 
-
-def cari_siswa():
+def pengaturan_sekolah():
     options = Options()
     options.add_argument("--ignore-certificate-errors")
     options.add_argument("--ignore-ssl-errors")
@@ -45,43 +47,38 @@ def cari_siswa():
     # Tunggu beberapa detik setelah login
     time.sleep(9)
 
-    # Klik Menu Master Data
-    print("Klik menu Master Data...")
-    master_data = wait.until(EC.element_to_be_clickable((By.XPATH, "(//*[@data-testid='sidebar-menu-master-data'])[2]")))
-    master_data.click()
-    time.sleep(5)
-
-    # Klik sub-menu siswa
-    print("Klik sub-menu Kelola Siswa...")
-    kelola_siswa = driver.find_element(By.XPATH, "(//*[@data-testid='sidebar-menu-kelola-siswa'])[2]")
-    kelola_siswa.click()
+    # Pengturan Sistem
+    pengaturan_sistem = driver.find_element(By.XPATH, "(//*[@data-testid='sidebar-menu-pengaturan-sistem'])[2]")
+    pengaturan_sistem.click()
     time.sleep(4)
+    print("berhasil masuk ke menu pengaturan sistem")
 
-    # Cari Siswa
-    print("Mengisi input pencarian siswa...")
-    cariSiswa = driver.find_element(By.XPATH, "//*[@data-testid='input-search']")
-    cariSiswa.click()
-    cariSiswa.send_keys("Muhammad Akmal")
+    # Pilih Card Sekolah
 
-    print("Menunggu hasil pencarian siswa...")
-    value_siswa = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//p[contains(@class, 'text-sm') and contains(text(), '890998 - Muhammad Akmal, XI BAHASA Mandiri, SMA')]"))
-    )
-    value_siswa.click()
-    time.sleep(7)
+    cardSekolah = driver.find_element(By.XPATH,
+                                      "(//div[contains(@class, 'flex') and .//p[text()='Informasi Sekolah']])[5]")
+    cardSekolah.click()
+    time.sleep(4)
+    print("Masuk Ke Menu Informasi Sekolah")
 
-    # Terapkan
-    print("Klik tombol Terapkan...")
-    try:
-        btn_terapkan = driver.find_element(By.XPATH, "//button[contains(@class, 'rounded-[6px]') and contains(@class, 'bg-secondary10') and .//div[text()='Terapkan']]")
-        btn_terapkan.click()
-        print("Tombol Terapkan berhasil diklik!")
-    except Exception as e:
-        print(f"Error saat mengklik tombol Terapkan: {e}")
+    # ubah logo Sekolah
+    ubah_logo = driver.find_element(By.XPATH, "(//*[@data-testid='upload-action-label'])[1]")
+    ubah_logo.click()
+    print("Membuka File Explorer")
+    time.sleep(5)
+    pyautogui.write(
+        r"C:\Users\akmal\Downloads\winter-aespa-hot-mess-4k-wallpaper-uhdpaper.com-362@0@k.jpg")  # Path file gambar
+    pyautogui.press("enter")
+    print("Logo Sekolah berhasil ditambahkan")
 
-    # Tunggu beberapa detik untuk proses selesai
     time.sleep(5)
 
-    # Menutup browser
-    print("Menutup browser...")
-    driver.quit()
+    # ubah Kop Surat
+    ubah_kop = driver.find_element(By.XPATH, "(//*[@data-testid='upload-action-label'])[2]")
+    ubah_kop.click()
+    print("Membuka File Explorer")
+    time.sleep(5)
+    pyautogui.write(r"C:\Users\akmal\Downloads\Logo-OSIS-SMA.png")  # Path file gambar
+    pyautogui.press("enter")
+    print("Kop Surat berhasil ditambahkan")
+    time.sleep(5)
