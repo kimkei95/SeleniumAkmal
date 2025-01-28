@@ -119,3 +119,6 @@ def hapus_tagihan_persiswa():
     time.sleep(6)
 
     driver.quit()
+
+if hapus_tagihan_persiswa() == "_main_":
+    hapus_tagihan_persiswa()

@@ -12,7 +12,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Setup logging configuration
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def hapus_sumbangan():
+def menghapus_sumbangan():
     options = Options()
     options.add_argument("--ignore-certificate-errors")
     options.add_argument("--ignore-ssl-errors")
@@ -77,3 +77,7 @@ def hapus_sumbangan():
 
     driver.quit()
     print("Driver dihentikan, skrip selesai")
+
+
+if menghapus_sumbangan() == "_main_":
+    menghapus_sumbangan()

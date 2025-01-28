@@ -62,3 +62,8 @@ def lihat_riwayat():
         random_element.click()
 
         time.sleep(7)
+
+    driver.quit()
+
+if lihat_riwayat() == "_main_":
+    lihat_riwayat()

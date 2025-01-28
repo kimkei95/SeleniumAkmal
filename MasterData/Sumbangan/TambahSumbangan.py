@@ -124,3 +124,7 @@ def tambah_sumbangan():
     driver.quit()
     print("Driver dihentikan, skrip selesai")
     logging.info("Driver quit, script completed")
+
+
+if tambah_sumbangan() == "_main_":
+    tambah_sumbangan()

@@ -93,3 +93,7 @@ def edit_abank():
 
     print("Menutup driver...")
     driver.quit()
+
+
+if edit_abank() == "_main":
+    edit_abank()

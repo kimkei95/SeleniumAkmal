@@ -85,3 +85,6 @@ def cari_siswa():
     # Menutup browser
     print("Menutup browser...")
     driver.quit()
+
+if cari_siswa() == "_main_":
+    cari_siswa()

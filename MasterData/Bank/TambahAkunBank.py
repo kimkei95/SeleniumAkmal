@@ -108,3 +108,6 @@ def tambah_bank():
     # Quit Driver
     print("Menutup browser...")
     driver.quit()
+
+if tambah_bank() == "_main":
+    tambah_bank()

@@ -93,3 +93,6 @@ def filter_tagihan():
 
     driver.quit()
     print("Driver quit, script completed")
+
+if filter_tagihan() == "_main_":
+    filter_tagihan()

@@ -205,3 +205,6 @@ def tambah_tagihan():
         # Quit the driver
         driver.quit()
         print("Driver dihentikan, script selesai.")
+
+if tambah_tagihan() =="_main_":
+    tambah_tagihan()

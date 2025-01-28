@@ -113,3 +113,6 @@ def edit_siswa():
     # Menutup browser
     print("Menutup browser...")
     driver.quit()
+
+if edit_siswa() == "_main_":
+    edit_siswa()

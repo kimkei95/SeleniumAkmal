@@ -1,8 +1,8 @@
-import random
+
 
 import pyautogui
 from selenium import webdriver
-from selenium.webdriver import Keys
+
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
@@ -12,7 +12,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
-def pengaturan_sekolah():
+def atur_sekolah():
     options = Options()
     options.add_argument("--ignore-certificate-errors")
     options.add_argument("--ignore-ssl-errors")
@@ -82,3 +82,6 @@ def pengaturan_sekolah():
     pyautogui.press("enter")
     print("Kop Surat berhasil ditambahkan")
     time.sleep(5)
+
+if atur_sekolah() == "_main_":
+    atur_sekolah()

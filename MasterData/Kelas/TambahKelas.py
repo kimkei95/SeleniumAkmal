@@ -107,3 +107,6 @@ def tambah_kelas():
     # Menutup browser
     print("Menutup browser...")
     driver.quit()
+
+if tambah_kelas() == "_main_":
+    tambah_kelas()

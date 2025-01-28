@@ -85,3 +85,5 @@ def filter_siswa():
             driver.quit()
             print("Browser ditutup.")
 
+if filter_siswa() == "_main_":
+    filter_siswa()

@@ -132,3 +132,6 @@ def edit_tagihan():
     button_terapkan.click()
 
     time.sleep(5)
+
+if edit_tagihan() == "_main_":
+    edit_tagihan()

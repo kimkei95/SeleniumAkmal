@@ -79,3 +79,6 @@ def lihat_tagihan():
         # Quit the driver
         driver.quit()
         print("Driver quit, script completed")
+
+if lihat_tagihan() =="_main_":
+    lihat_tagihan()

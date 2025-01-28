@@ -95,3 +95,7 @@ def cari_riwayat():
     terapkan_filter.click()
 
     time.sleep(3)
+    driver.quit()
+
+if cari_riwayat() == "_main_":
+    cari_riwayat()

@@ -1,5 +1,7 @@
 import unittest
 from HtmlTestRunner import HTMLTestRunner
+from selenium.webdriver.common.devtools.v85.fetch import continue_request
+
 from MasterData.Bank.TambahAkunBank import tambah_bank
 from MasterData.Bank.EditAkunBank import edit_abank
 from MasterData.Kelas.TambahKelas import tambah_kelas
@@ -10,7 +12,7 @@ from MasterData.KelolaSiswa.TambahSiswa import tambah_siswa
 from MasterData.KelolaSiswa.FilterSiswa import filter_siswa
 from MasterData.KelolaSiswa.LihatSiswa import lihat_siswa
 from MasterData.Sumbangan.TambahSumbangan import tambah_sumbangan
-from MasterData.Sumbangan.HapusSumbangan import hapus_sumbangan
+from MasterData.Sumbangan.HapusSumbangan import menghapus_sumbangan
 from MasterData.Tagihan.TambahTagihan import tambah_tagihan
 from MasterData.Tagihan.LihatTagihan import lihat_tagihan
 from MasterData.Tagihan.FilterTagihan import filter_tagihan
@@ -20,7 +22,18 @@ from MasterTagihan.TagihanPerSiswa.HapusTagihanPersiswa import hapus_tagihan_per
 from MasterTagihan.RiwayatPembayaran.LihatRiwayatPembayaran import lihat_riwayat
 from MasterTagihan.RiwayatPembayaran.CariRiwayatPembayaran import cari_riwayat
 from MasterTagihan.Pembayaran.BayarTagihan import bayar_tagihan
-from MasterPengaturanSistem.PengaturanSekolah import pengaturan_sekolah
+from MasterPengaturanSistem.PengaturanSekolah.PengaturanSekolahScript import atur_sekolah
+from MasterPengaturanSistem.PengaturanInvoice.PengaturanInvoice import atur_invoice
+from MasterLaporan.LaporanPembayaran.CariSiswa import cari_pembayaran_siswa
+from MasterLaporan.LaporanPembayaran.FilterSiswa import filter_pembayaran_siswa
+from MasterLaporan.LaporanPembayaran.UnduhExcel import unduh_pembayaran_excel
+from MasterLaporan.LaporanTagihan.CariSiswa import cari_tagihan_siswa
+from MasterLaporan.LaporanTagihan.FilterSiswa import filter_laporan_tagihan
+from MasterLaporan.LaporanTagihan.UnduhExcel import unduh_laporan_excel
+from MasterPengumuman.Pengumuman.CreatePengumuman import create_pengumuman
+from MasterPengumuman.Pengumuman.CreateEvent import crete_event
+from MasterPengumuman.Pengumuman.EditInformasi import edit_pengumuman_event
+from UserManagement.TambahUser.TambahUser import tambah_akun
 import logging
 import os
 from datetime import datetime
@@ -163,7 +176,7 @@ class TestHapusSumbangan(unittest.TestCase):
                 f"Menjalankan Tes Hapus Sumbangan ke-{i + 1}..."
             )
             try:
-                hapus_sumbangan()
+                menghapus_sumbangan()
                 logging.info(f"Tes Hapus Sumbangan ke-{i + 1} berhasil")
             except Exception as e:
                 logging.error(f"Tes Hapus Sumbangan ke-{i + 1} gagal: {e}")
@@ -256,6 +269,7 @@ class TestLihatRiwayatPembayaran(unittest.TestCase):
             except Exception as e:
                 logging.error(f"Test Lihat Riwayat Pembayaran ke-{i + 1} gagal: {e}")
                 continue
+
 class TestBayarTagihan(unittest.TestCase):
     def test_bayar_tagihan(self):
         for i in range(3):
@@ -266,18 +280,140 @@ class TestBayarTagihan(unittest.TestCase):
             except Exception as e:
                 logging.error(f"Tes Bayar Tagihan ke-{i + 1} gagal: {e}")
                 continue
+
 class TestPengaturanSekolah(unittest.TestCase):
     def test_atur_sekolah(self):
         for i in range(3):
 
             logging.info(f"Test Pengaturan Sekolah ke-{i + 1}...")
             try:
-                pengaturan_sekolah()
+                atur_sekolah()
                 logging.info(f"Tes Pengaturan Sekolah ke-{i + 1} berhasil")
             except Exception as e:
                 logging.error(f"Tes Pengaturan Sekolah ke-{i + 1} gagal: {e}")
                 continue
-                
+
+class TestAturInvoice(unittest.TestCase):
+    def test_atur_invoice(self):
+        for i in range(3):
+            logging.info(f"Tes Atur Invoice ke-{i + 1}...")
+            try:
+                atur_invoice()
+                logging.info(f"Tes Atur Invoice ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Atur Invoice ke-{i + 1} gagal: {e}")
+                continue
+
+class TestCariPembayaranSiswa(unittest.TestCase):
+    def test_cari_pembayaran_siswa(self):
+        for i in range(3):
+            logging.info(f"Tes Cari Pembayaran Siswa ke-{i + 1}...")
+            try:
+                cari_pembayaran_siswa()
+                logging.info(f"Test cari Pembayaran Siswa ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes cari Pembayaran Siswa ke-{i + 1} gagal: {e}")
+                continue
+
+class TestFilterPembayaranSiswa(unittest.TestCase):
+    def test_filter_pembayaran_siswa(self):
+        for i in range(3):
+            logging.info(f"Tes Filter Pembayaran Siswa ke-{i + 1}...")
+            try:
+                filter_pembayaran_siswa()
+                logging.info(f"Tes Filter Pembyaran Siswa ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Filter Pembyaran Siswa ke-{i + 1 } gagal: {e}")
+                continue
+
+class TestUnduhLaporanPembayaran(unittest.TestCase):
+    def test_unduh_excel(self):
+        for i in range(3):
+            logging.info(f"Tes Undduh Laporan ke-{i + 1}...")
+            try:
+                unduh_pembayaran_excel()
+                logging.info(f"Tes Unduh Laporan ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Unduh Laporan ke-{i + 1} gagal: {e}")
+                continue
+
+class TestCariTagihanSiswa(unittest.TestCase):
+    def test_cari_tagihan_siswa(self):
+        for i in range(3):
+            logging.info(f"Tes Cari Tagihan Siswa ke-{i + 1}...")
+            try:
+                cari_tagihan_siswa()
+                logging.info(f"Tes Cari Tagihan Siswa ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Cari Tagihan Siswa ke-{i + 1} gagal: {e}")
+                continue
+
+class TestFilterLaporanTagihan(unittest.TestCase):
+    def test_filter_laporan_tagihan(self):
+        for i in range(3):
+            logging.info(f"Tes Filter Laporan Tagihan ke-{i + 1}")
+            try:
+                filter_laporan_tagihan()
+                logging.info(f"Tes Filter Laporan Tagihan ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Filter Laporan Tagihan ke-{i + 1} gagal: {e}")
+                continue
+
+class TestUnduhLaporanTagihan(unittest.TestCase):
+    def test_Unduh_Laporan_tagihan(self):
+        for i in range(3):
+            logging.info(f"Tes Unduh Laporan Tagihan ke-{i + 1}...")
+            try:
+                unduh_laporan_excel()
+                logging.info(f"Tes Unduh Laporan Tagihan ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Unduh Laporan Tagihan ke-{i + 1} gagal: {e}")
+                continue
+class TestCreateEvent(unittest.TestCase):
+    def test_create_event(self):
+        for i in range(3):
+            logging.info(f"Tes Create event ke-{i + 1}...")
+            try:
+                crete_event()
+                logging.info(f"Tes Create event ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Create event ke-{i + 1} gagal : {e}")
+                continue
+
+class TestCreatePengumuman(unittest.TestCase):
+    def test_create_pengumuman(self):
+        for i in range(3):
+            logging.info(f"Tes Create Pengumuman ke-{i + 1}...")
+            try:
+                create_pengumuman()
+                logging.info(f"Tes Create Pengumuman ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Create Pengumuman ke-{i + 1} gagal:{e}")
+                continue
+
+class TestEditInformasi(unittest.TestCase):
+    def test_edit_informasi(self):
+        for i in range(3):
+            logging.info(f"Tes Edit Informasi ke-{i + 1}...")
+            try:
+                edit_pengumuman_event()
+                logging.info(f"Tes Edit Informasi ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Edit Informasi ke-{i + 1} gagal: {e}")
+                continue
+
+class TestTambahUser(unittest.TestCase):
+    def test_tambah_user(self):
+        for i in range(3):
+            logging.info(f"Tes Tambah User ke-{i + 1}...")
+            try:
+                tambah_akun()
+                logging.info(f"Tes Tambah User ke-{i + 1} berhasil")
+            except Exception as e:
+                logging.error(f"Tes Tambah User ke-{i +1} gagal: {e}")
+                continue
+
+
 # yang ini belum kepake karna masih nyari buat ubah script terbaca jadi testcase (untuk genereate auto report)
 def run_regression_tests():
     # Memuat semua tes untuk tambah bank dan edit bank

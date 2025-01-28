@@ -89,3 +89,8 @@ def cari_tagihanpersiswa():
     btn_terapkan_siswa.click()
 
     time.sleep(5)
+
+    driver.quit()
+
+if cari_tagihanpersiswa() == "_main_":
+    cari_tagihanpersiswa()

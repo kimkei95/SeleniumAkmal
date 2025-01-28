@@ -327,3 +327,6 @@ def tambah_siswa():
     pop_upAddSiswa.click()
 
     time.sleep(7)
+
+if tambah_siswa() == "_main_":
+    tambah_siswa()

@@ -89,3 +89,6 @@ def edit_kelas():
     # Menutup browser
     print("Menutup browser...")
     driver.quit()
+
+if edit_kelas()== "_main_":
+    edit_kelas()

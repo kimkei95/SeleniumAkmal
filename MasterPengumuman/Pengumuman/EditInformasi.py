@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-def create_pengumuman():
+def edit_pengumuman_event():
     options = Options()
     options.add_argument("--ignore-certificate-errors")
     options.add_argument("--ignore-ssl-errors")
@@ -58,25 +58,26 @@ def create_pengumuman():
     print("Sub-Menu Pengumuman berhasil di klik")
     time.sleep(3)
 
-    tambah_pengumuman = driver.find_element(By.XPATH,"//button[.//div[text()='Tambah']]")
-    tambah_pengumuman.click()
-    print("Button Tambah Berhasil Diklik dan Masuk Ke Tambah Pengumuman")
-    time.sleep(3)
+    #klik tridots
 
-    #Add Gambar Pengumuman
-    tambah_gambar = driver.find_element(By.XPATH,"//*[@data-testid='upload-action-label']")
-    tambah_gambar.click()
+    # Temukan semua elemen dengan data-testid='tridots-icon'
+    tridots_elemen = driver.find_elements(By.XPATH, "//*[@data-testid='tridots-icon']")
 
-    time.sleep(3)
+    # Pilih salah satu elemen secara acak
+    tridots_terpilih = random.choice(tridots_elemen)
 
-    pyautogui.write(r"C:\Users\akmal\Downloads\winter-aespa-hot-mess-4k-wallpaper-uhdpaper.com-362@0@k.jpg")  # Path file gambar
-    pyautogui.press("enter")  # Tekan Enter untuk memilih file
+    # Klik elemen yang terpilih
+    tridots_terpilih.click()
+    print("Tridots Berhasil Terklik")
+    time.sleep(4)
 
-    time.sleep(5)
-    print("gambar berhasil di upload")
+    #Klik Edit
+    edit = driver.find_element(By.XPATH,"//*[@data-testid='action-0']")
+    edit.click()
+    print("Masuk Ke Fungsi Edit Pengumuman/Event")
 
-    #Tambah Judul Pengumuman
-    # Daftar judul pengumuman
+    time.sleep(4)
+    #title
     judul_pengumuman = [
         "Pengumuman Libur Sekolah Akhir Semester",
         "Jadwal Ujian Tengah Semester Ganjil",
@@ -107,29 +108,27 @@ def create_pengumuman():
     add_title = driver.find_element(By.NAME, "title")
     add_title.click()
     print("field title berhasil di klik")
+    add_title.send_keys(Keys.CONTROL+ "a")
+    time.sleep(1)
+    add_title.send_keys(Keys.BACKSPACE)
+    time.sleep(1)
     add_title.send_keys(judul_terpilih)
-
+    print("Judul Berhasil Diganti")
     time.sleep(4)
 
-    #Deskripsi Pengumuman
 
-    desc_pengumuman = driver.find_element(By.XPATH,"//*[@data-gramm='false']")
-    desc_pengumuman.click()
-    desc_pengumuman.send_keys("Test")
+    #SimpanPerbuahan
+
+    perubahan = driver.find_element(By.XPATH,"//button[.//div[text()='Simpan']]")
+    perubahan.click()
+    print("tombol simpan berhasil di klik")
     time.sleep(3)
 
-    #Simpan Perubahan
+    #pop up
+    popUp = driver.find_element(By.XPATH,"//button[.//div[text()='Ya']]")
+    popUp.click()
+    print("menyimpan perubahan...")
+    time.sleep(7)
 
-    conf_pengumuman = driver.find_element(By.XPATH,"//button[.//div[text()='Simpan']]")
-    conf_pengumuman.click()
-    print("tombol Simpan Berhasil Di klik")
-
-    #Pop-up
-
-    conf_popUp = driver.find_element(By.XPATH,"//button[.//div[text()='Ya']]")
-    conf_popUp.click()
-
-    time.sleep(10)
-
-if create_pengumuman() =="_main_":
-    create_pengumuman()
+if edit_pengumuman_event() =="_main_":
+    edit_pengumuman_event()

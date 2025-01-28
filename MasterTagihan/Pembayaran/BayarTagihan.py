@@ -131,3 +131,9 @@ def bayar_tagihan():
     button_lanjut.click()
 
     time.sleep(7)
+
+    driver.quit()
+
+
+if bayar_tagihan() == "_main_":
+    bayar_tagihan()
